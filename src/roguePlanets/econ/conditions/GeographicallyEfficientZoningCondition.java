@@ -1,5 +1,7 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.Global;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,24 @@ public class GeographicallyEfficientZoningCondition extends BaseMarketConditionP
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Geographically Efficient Zoning");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Geographically Efficient Zoning");
         tooltip.addPara(
             "Vast stretches of uninterrupted, uniform bedrock plains and natural basalt shelf plateaus provide exceptionally stable foundational strata across this world. Devoid of fractured seismic fault lines, subterranean sink voids, or disruptive magnetic ground currents, civil engineering crews and autonomous fabrication complexes can grade terrain, sink structural pylons, and assemble massive colonial complexes with unparalleled logistical efficiency.",
             10f

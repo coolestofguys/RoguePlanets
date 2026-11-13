@@ -110,7 +110,8 @@ public class GlitchJobs {
     private static final float COOLDOWN_DAYS = 60f;
 
     private static boolean storyAllows() {
-        return AfterlightStory.isClaimed() && !roguePlanets.AfterlightCaptainScript.captainGone();
+        return AfterlightStory.isClaimed() && !roguePlanets.AfterlightCaptainScript.captainGone()
+            && !Stage16.done(); // no new glitched jobs once any ending has been chosen (one already accepted can still be finished)
     }
 
     private static boolean inCooldown() {

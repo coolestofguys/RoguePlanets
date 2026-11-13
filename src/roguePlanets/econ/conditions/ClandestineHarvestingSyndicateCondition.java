@@ -400,7 +400,24 @@ public class ClandestineHarvestingSyndicateCondition extends BaseMarketCondition
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Clandestine Harvesting Syndicate");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Clandestine Harvesting Syndicate");
         tooltip.addPara(
             "Operating out of the underbelly of colonial population centers or subterranean medical complexes, a powerful criminal cartel or unregulated corporate conglomerate runs a massive, high-volume biological processing grid. Driven by off-world black-market demand for transplant tissues, neural tissue, and vat-grown clone organs, the facility funnels a steady stream of illegal bio-cargo into smuggling routes while exploiting colonial labor.",
             10f

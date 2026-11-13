@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -123,7 +124,24 @@ public class SupercriticalCrustCondition extends BaseMarketConditionPlugin imple
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Supercritical Crust");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Supercritical Crust");
         tooltip.addPara(
             "The upper crust is trapped in a supercritical state, a sea of pressurized fluid held under a skin of fractured rock. "
             + "Plates shift without warning and the ground breaks open in crustquakes that throw deep ore, rare ore and crystalline luxuries to the surface. "

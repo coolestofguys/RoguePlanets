@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MutableCommodityQuantity;
@@ -87,7 +88,24 @@ public class ClosedLoopHydroponicsCondition extends BaseMarketConditionPlugin {
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Closed-loop Hydroponic Matrix");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Closed-loop Hydroponic Matrix");
         tooltip.addPara(
             "Equipped with hydroponic arrays, moisture recyclers, and advanced atmospheric scrubbers, a colony on this planet operates on a self-sustaining biological loop that entirely eliminates local food demand.",
             10f

@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.impl.campaign.econ.BaseMarketConditionPlugin;
@@ -121,7 +122,24 @@ public class SupercooledCryoSinksCondition extends BaseMarketConditionPlugin {
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Supercooled Cryo-Sinks");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Supercooled Cryo-Sinks");
         tooltip.addPara(
             "Vast subterranean reserves of liquid nitrogen and pressurized ammonia geysers permeate the geological crust of this world. When tapped by disciplined colonial engineers, these hyper-cold fluid reservoirs act as near-infinite thermal sinks for high-yield quantum radar arrays, dramatically expanding system-wide sensor coverage. However, maintaining thermodynamic containment requires rigorous technical oversight; should colonial infrastructure falter, runaway cryogenic decompression vents into atmospheric domes, triggering devastating flash freezes.",
             10f

@@ -2,7 +2,7 @@
 
 # Rogue Planets
 
-**A Starsector mod by coolestofguys** · for Starsector **0.98.5a** · version **1.0.0**
+**A Starsector mod by coolestofguys** · for Starsector **0.98.5a** · version **1.0.1**
 
 New kinds of worlds, over thirty new market conditions, and a frontier that keeps a few secrets.
 
@@ -33,7 +33,7 @@ Over thirty new conditions are scattered across non-core worlds. Some are simple
 
 A synergy condition lies dormant until you build the right **pair of industries** on that world. With both running, it switches on: missile batteries that join your battles, garrisons dug into a volcano, an observatory that maps the sector for you. Let either industry be disrupted and the bonus goes quiet. A few conditions punish you for it.
 
-Hover any condition on a planet to see its full rules and which industries it needs.
+Hover any condition on a planet to see its full rules and which industries it needs. Conditions and world types you have found are also recorded in the codex.
 
 ## And something else
 
@@ -53,6 +53,7 @@ No other mods are required.
 
 - **Starsector 0.98.5a.**
 - **Requires a new game.** Adding it to an existing save won't generate the new worlds.
+- **Updating:** 1.0.1 is save-compatible with 1.0.0. Delete the old `RoguePlanets` folder and extract the new one in its place.
 - **Not safe to remove from a save** that has used it.
 - Tested alongside **Nexerelin** (AI colonies can settle these worlds), **Unknown Skies** and **Starship Legends**.
 

@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MutableCommodityQuantity;
@@ -91,7 +92,24 @@ public class MegalithicOutcropsCondition extends BaseMarketConditionPlugin {
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Megalithic Outcrops");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Megalithic Outcrops");
         tooltip.addPara(
             "Colossal monolithic mineral protrusions and exposed crystalline ridges jut miles high through the planetary crust. Rather than requiring extensive subterranean shaft excavation, deep core extraction, or hazardous tectonic tunneling, vast seams of rich raw metallics and concentrated ore sit openly exposed across surface plains, accessible to surface strip-crawlers with unprecedented ease.",
             10f

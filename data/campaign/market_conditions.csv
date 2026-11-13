@@ -1,32 +1,32 @@
-id,name,script,decivilized,planetary,station,order,icon
-fragile_biosphere,"Fragile Biosphere",roguePlanets.econ.conditions.FragileBiosphereCondition,FALSE,TRUE,FALSE,10,graphics/icons/markets/fragile_biosphere.png
-supercritical_crust,"Supercritical Crust",roguePlanets.econ.conditions.SupercriticalCrustCondition,FALSE,TRUE,FALSE,15,graphics/icons/markets/supercritical_crust.png
-degenerate_volatiles,"Degenerate Volatiles",roguePlanets.econ.conditions.DegenerateVolatilesCondition,FALSE,TRUE,FALSE,20,graphics/icons/markets/degenerate_volatiles.png
-geothermal_leylines,"Geothermal Leylines",roguePlanets.econ.conditions.GeothermalLeylinesCondition,FALSE,TRUE,FALSE,25,graphics/icons/markets/geothermal_leylines.png
-diamond_core,"Diamond Core",roguePlanets.econ.conditions.DiamondCoreCondition,FALSE,TRUE,FALSE,30,graphics/icons/markets/diamond_core.png
-automated_shipyards,"Automated Shipyards",roguePlanets.econ.conditions.AutomatedShipyardsCondition,FALSE,TRUE,FALSE,35,graphics/icons/markets/automated_shipyards.png
-hydrocarbon_fractionation,"Hydrocarbon Fractionation",roguePlanets.econ.conditions.HydrocarbonFractionationCondition,FALSE,TRUE,FALSE,40,graphics/icons/markets/hydrocarbon_fractionation.png
-forgotten_vault_world,"Forgotten Vault-World",roguePlanets.econ.conditions.ForgottenVaultWorldCondition,FALSE,TRUE,FALSE,45,graphics/icons/markets/forgotten_vault_world.png
-antimatter_anomaly,"Antimatter Anomaly",roguePlanets.econ.conditions.AntimatterAnomalyCondition,FALSE,TRUE,FALSE,50,graphics/icons/markets/antimatter_anomaly.png
-clandestine_harvesting_syndicate,"Clandestine Harvesting Syndicate",roguePlanets.econ.conditions.ClandestineHarvestingSyndicateCondition,FALSE,TRUE,FALSE,55,graphics/icons/markets/clandestine_harvesting_syndicate.png
-megalithic_outcrops,"Megalithic Outcrops",roguePlanets.econ.conditions.MegalithicOutcropsCondition,FALSE,TRUE,FALSE,180,graphics/icons/markets/megalithic_outcrops.png
-geographically_efficient_zoning,"Geographically Efficient Zoning",roguePlanets.econ.conditions.GeographicallyEfficientZoningCondition,FALSE,TRUE,FALSE,185,graphics/icons/markets/geographically_efficient_zoning.png
-radiolytic_catalyst,"Radiolytic Catalyst",roguePlanets.econ.conditions.RadiolyticCatalystCondition,FALSE,TRUE,FALSE,190,graphics/icons/markets/radiolytic_catalyst.png
-chrono_spatial_dilation,"Chrono-Spatial Dilation",roguePlanets.econ.conditions.ChronoSpatialDilationCondition,FALSE,TRUE,FALSE,195,graphics/icons/markets/chrono_spatial_dilation.png
-rapid_geomagnetic_inversion,"Rapid Geomagnetic Inversion",roguePlanets.econ.conditions.RapidGeomagneticInversionCondition,FALSE,TRUE,FALSE,200,graphics/icons/markets/rapid_geomagnetic_inversion.png
-closed_loop_hydroponics,"Closed-loop Hydroponic Matrix",roguePlanets.econ.conditions.ClosedLoopHydroponicsCondition,FALSE,TRUE,FALSE,205,graphics/icons/markets/closed_loop_hydroponics.png
-supercooled_cryo_sinks,"Supercooled Cryo-Sinks",roguePlanets.econ.conditions.SupercooledCryoSinksCondition,FALSE,TRUE,FALSE,210,graphics/icons/markets/supercooled_cryo_sinks.png
-magmatic_antimatter_forge,"Magmatic Antimatter Forge",roguePlanets.econ.conditions.MagmaticAntimatterForgeCondition,FALSE,TRUE,FALSE,220,graphics/icons/markets/magmatic_antimatter_forge.png
-hollowed_caldera_garrisons,"Hollowed Caldera Garrisons",roguePlanets.econ.conditions.HollowedCalderaGarrisonsCondition,FALSE,TRUE,FALSE,225,graphics/icons/markets/hollowed_caldera_garrisons.png
-vacation_paradise_resort,"Vacation Paradise & Resort",roguePlanets.econ.conditions.VacationParadiseResortCondition,FALSE,TRUE,FALSE,230,graphics/icons/markets/vacation_paradise_resort.png
-smugglers_haven,"Smugglers' Haven",roguePlanets.econ.conditions.SmugglersHavenCondition,FALSE,TRUE,FALSE,235,graphics/icons/markets/smugglers_haven.png
-watched,"Watched",roguePlanets.econ.conditions.WatchedCondition,FALSE,TRUE,FALSE,240,graphics/icons/markets/watched.png
-volatile_additive_reactor,"Volatile Additive Reactor",roguePlanets.econ.conditions.VolatileAdditiveReactorCondition,FALSE,TRUE,FALSE,250,graphics/icons/markets/volatile_additive_reactor.png
-viable_slave_labor,"Viable Slave Labor Population",roguePlanets.econ.conditions.ViableSlaveLaborCondition,FALSE,TRUE,FALSE,255,graphics/icons/markets/viable_slave_labor.png
-cold_sky_observatory,"Cold Sky Observatory",roguePlanets.econ.conditions.ColdSkyObservatoryCondition,FALSE,TRUE,FALSE,260,graphics/icons/markets/cold_sky_observatory.png
-ground_missile_defense,"Ground-to-Space Missile Defense",roguePlanets.econ.conditions.GroundMissileDefenseCondition,FALSE,TRUE,FALSE,265,graphics/icons/markets/ground_missile_defense.png
-resonant_signal_trap,"Resonant Signal Trap",roguePlanets.econ.conditions.ResonantSignalTrapCondition,FALSE,TRUE,FALSE,270,graphics/icons/markets/resonant_signal_trap.png
-ship_graveyard,"Ship Graveyard",roguePlanets.econ.conditions.ShipGraveyardCondition,FALSE,TRUE,FALSE,275,graphics/icons/markets/ship_graveyard.png
-pilgrim_world,"Pilgrim World",roguePlanets.econ.conditions.PilgrimWorldCondition,FALSE,TRUE,FALSE,280,graphics/icons/markets/pilgrim_world.png
-trash_king,"Trash King",roguePlanets.econ.conditions.TrashKingCondition,FALSE,TRUE,FALSE,285,graphics/icons/markets/trash_king.png
-ice_locked_seas,"Ice-Locked Seas",roguePlanets.econ.conditions.IceLockedSeasCondition,FALSE,TRUE,FALSE,32,graphics/icons/markets/ice_locked_seas.png
+id,name,script,decivilized,planetary,station,order,icon,tags
+fragile_biosphere,Fragile Biosphere,roguePlanets.econ.conditions.FragileBiosphereCondition,FALSE,TRUE,FALSE,10,graphics/icons/markets/fragile_biosphere.png,"show_in_codex, codex_unlockable"
+supercritical_crust,Supercritical Crust,roguePlanets.econ.conditions.SupercriticalCrustCondition,FALSE,TRUE,FALSE,15,graphics/icons/markets/supercritical_crust.png,"show_in_codex, codex_unlockable"
+degenerate_volatiles,Degenerate Volatiles,roguePlanets.econ.conditions.DegenerateVolatilesCondition,FALSE,TRUE,FALSE,20,graphics/icons/markets/degenerate_volatiles.png,"show_in_codex, codex_unlockable"
+geothermal_leylines,Geothermal Leylines,roguePlanets.econ.conditions.GeothermalLeylinesCondition,FALSE,TRUE,FALSE,25,graphics/icons/markets/geothermal_leylines.png,"show_in_codex, codex_unlockable"
+diamond_core,Diamond Core,roguePlanets.econ.conditions.DiamondCoreCondition,FALSE,TRUE,FALSE,30,graphics/icons/markets/diamond_core.png,"show_in_codex, codex_unlockable"
+automated_shipyards,Automated Shipyards,roguePlanets.econ.conditions.AutomatedShipyardsCondition,FALSE,TRUE,FALSE,35,graphics/icons/markets/automated_shipyards.png,"show_in_codex, codex_unlockable"
+hydrocarbon_fractionation,Hydrocarbon Fractionation,roguePlanets.econ.conditions.HydrocarbonFractionationCondition,FALSE,TRUE,FALSE,40,graphics/icons/markets/hydrocarbon_fractionation.png,"show_in_codex, codex_unlockable"
+forgotten_vault_world,Forgotten Vault-World,roguePlanets.econ.conditions.ForgottenVaultWorldCondition,FALSE,TRUE,FALSE,45,graphics/icons/markets/forgotten_vault_world.png,"show_in_codex, codex_unlockable"
+antimatter_anomaly,Antimatter Anomaly,roguePlanets.econ.conditions.AntimatterAnomalyCondition,FALSE,TRUE,FALSE,50,graphics/icons/markets/antimatter_anomaly.png,"show_in_codex, codex_unlockable"
+clandestine_harvesting_syndicate,Clandestine Harvesting Syndicate,roguePlanets.econ.conditions.ClandestineHarvestingSyndicateCondition,FALSE,TRUE,FALSE,55,graphics/icons/markets/clandestine_harvesting_syndicate.png,"show_in_codex, codex_unlockable"
+megalithic_outcrops,Megalithic Outcrops,roguePlanets.econ.conditions.MegalithicOutcropsCondition,FALSE,TRUE,FALSE,180,graphics/icons/markets/megalithic_outcrops.png,"show_in_codex, codex_unlockable"
+geographically_efficient_zoning,Geographically Efficient Zoning,roguePlanets.econ.conditions.GeographicallyEfficientZoningCondition,FALSE,TRUE,FALSE,185,graphics/icons/markets/geographically_efficient_zoning.png,"show_in_codex, codex_unlockable"
+radiolytic_catalyst,Radiolytic Catalyst,roguePlanets.econ.conditions.RadiolyticCatalystCondition,FALSE,TRUE,FALSE,190,graphics/icons/markets/radiolytic_catalyst.png,"show_in_codex, codex_unlockable"
+chrono_spatial_dilation,Chrono-Spatial Dilation,roguePlanets.econ.conditions.ChronoSpatialDilationCondition,FALSE,TRUE,FALSE,195,graphics/icons/markets/chrono_spatial_dilation.png,"show_in_codex, codex_unlockable"
+rapid_geomagnetic_inversion,Rapid Geomagnetic Inversion,roguePlanets.econ.conditions.RapidGeomagneticInversionCondition,FALSE,TRUE,FALSE,200,graphics/icons/markets/rapid_geomagnetic_inversion.png,"show_in_codex, codex_unlockable"
+closed_loop_hydroponics,Closed-loop Hydroponic Matrix,roguePlanets.econ.conditions.ClosedLoopHydroponicsCondition,FALSE,TRUE,FALSE,205,graphics/icons/markets/closed_loop_hydroponics.png,"show_in_codex, codex_unlockable"
+supercooled_cryo_sinks,Supercooled Cryo-Sinks,roguePlanets.econ.conditions.SupercooledCryoSinksCondition,FALSE,TRUE,FALSE,210,graphics/icons/markets/supercooled_cryo_sinks.png,"show_in_codex, codex_unlockable"
+magmatic_antimatter_forge,Magmatic Antimatter Forge,roguePlanets.econ.conditions.MagmaticAntimatterForgeCondition,FALSE,TRUE,FALSE,220,graphics/icons/markets/magmatic_antimatter_forge.png,"show_in_codex, codex_unlockable"
+hollowed_caldera_garrisons,Hollowed Caldera Garrisons,roguePlanets.econ.conditions.HollowedCalderaGarrisonsCondition,FALSE,TRUE,FALSE,225,graphics/icons/markets/hollowed_caldera_garrisons.png,"show_in_codex, codex_unlockable"
+vacation_paradise_resort,Vacation Paradise & Resort,roguePlanets.econ.conditions.VacationParadiseResortCondition,FALSE,TRUE,FALSE,230,graphics/icons/markets/vacation_paradise_resort.png,"show_in_codex, codex_unlockable"
+smugglers_haven,Smugglers' Haven,roguePlanets.econ.conditions.SmugglersHavenCondition,FALSE,TRUE,FALSE,235,graphics/icons/markets/smugglers_haven.png,"show_in_codex, codex_unlockable"
+watched,Watched,roguePlanets.econ.conditions.WatchedCondition,FALSE,TRUE,FALSE,240,graphics/icons/markets/watched.png,hide_in_codex
+volatile_additive_reactor,Volatile Additive Reactor,roguePlanets.econ.conditions.VolatileAdditiveReactorCondition,FALSE,TRUE,FALSE,250,graphics/icons/markets/volatile_additive_reactor.png,"show_in_codex, codex_unlockable"
+viable_slave_labor,Viable Slave Labor Population,roguePlanets.econ.conditions.ViableSlaveLaborCondition,FALSE,TRUE,FALSE,255,graphics/icons/markets/viable_slave_labor.png,"show_in_codex, codex_unlockable"
+cold_sky_observatory,Cold Sky Observatory,roguePlanets.econ.conditions.ColdSkyObservatoryCondition,FALSE,TRUE,FALSE,260,graphics/icons/markets/cold_sky_observatory.png,"show_in_codex, codex_unlockable"
+ground_missile_defense,Ground-to-Space Missile Defense,roguePlanets.econ.conditions.GroundMissileDefenseCondition,FALSE,TRUE,FALSE,265,graphics/icons/markets/ground_missile_defense.png,"show_in_codex, codex_unlockable"
+resonant_signal_trap,Resonant Signal Trap,roguePlanets.econ.conditions.ResonantSignalTrapCondition,FALSE,TRUE,FALSE,270,graphics/icons/markets/resonant_signal_trap.png,"show_in_codex, codex_unlockable"
+ship_graveyard,Ship Graveyard,roguePlanets.econ.conditions.ShipGraveyardCondition,FALSE,TRUE,FALSE,275,graphics/icons/markets/ship_graveyard.png,"show_in_codex, codex_unlockable"
+pilgrim_world,Pilgrim World,roguePlanets.econ.conditions.PilgrimWorldCondition,FALSE,TRUE,FALSE,280,graphics/icons/markets/pilgrim_world.png,"show_in_codex, codex_unlockable"
+trash_king,Trash King,roguePlanets.econ.conditions.TrashKingCondition,FALSE,TRUE,FALSE,285,graphics/icons/markets/trash_king.png,"show_in_codex, codex_unlockable"
+ice_locked_seas,Ice-Locked Seas,roguePlanets.econ.conditions.IceLockedSeasCondition,FALSE,TRUE,FALSE,32,graphics/icons/markets/ice_locked_seas.png,"show_in_codex, codex_unlockable"

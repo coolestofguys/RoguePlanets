@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.impl.campaign.econ.BaseMarketConditionPlugin;
@@ -80,7 +81,24 @@ public class ChronoSpatialDilationCondition extends BaseMarketConditionPlugin {
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Chrono-Spatial Dilation");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Chrono-Spatial Dilation");
         
         tooltip.addPara(
             "A severe localized distortion in the planet's space-time continuum causes subjective surface time to flow at an accelerated rate relative to the surrounding stellar system. Offworld logistics and cargo transfers complete almost instantaneously, dramatically boosting accessibility, and damaged facilities are repaired in half the time. However, physical materials endure decades of structural wear and entropic decay in mere standard months and doubling facility upkeep costs. Furthermore, drydocked and stationed warships suffer extreme relativistic fatigue and sensor desynchronization across the shear boundary, guaranteeing deployed vessels are decrepit.",

@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
@@ -81,7 +82,24 @@ public class AntimatterAnomalyCondition extends BaseMarketConditionPlugin implem
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Antimatter Anomaly");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Antimatter Anomaly");
         tooltip.addPara(
             "A pocket of primordial quantum asymmetry lies close beneath the surface of this world, where exotic particle reactions continuously release trace antimatter. The flux is easy to harvest and ideal for topping up fuel tanks, but it cannot be refined or contained in quantity, so it will never support the production of antimatter fuel canisters for trade.",
             10f

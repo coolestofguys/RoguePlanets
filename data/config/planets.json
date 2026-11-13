@@ -3,6 +3,7 @@
 	# To change how dark it is, edit planetColor / cloudColor / atmosphereColor / iconColor (lower = darker).
 	"nocturnal":{
 		"name":"Nocturnal",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId":"roguePlanets_nocturnal", # row in data/strings/descriptions.csv
 		"tilt":20, # left-right (>0 tilts to the left)
 		"pitch":30, # towards-away from the viewer (>0 pitches towards)
@@ -23,6 +24,7 @@
 
 	"eden_world":{
 		"name":"Eden",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId":"eden_world",
 		"tilt":12,
 		"pitch":0,
@@ -39,6 +41,7 @@
 	
 	"hydrocarbon_giant": {
 		"name": "Hydrocarbon Giant",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId": "hydrocarbon_giant",
 		"isGasGiant": true,
 		"tilt": 18,
@@ -57,6 +60,7 @@
 
 	"hadean_world": {
 		"name": "Hadean",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId": "hadean_world",
 		"tilt": 10,
 		"pitch": 0,
@@ -81,6 +85,7 @@
 	# Spawns through normal generation (see data/campaign/procgen/planet_gen_data.csv).
 	"halite":{
 		"name":"Halite",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId":"halite", # row in data/strings/descriptions.csv
 		"tilt":14,
 		"pitch":0,
@@ -100,6 +105,7 @@
 	# Spawns through normal generation. Its radius (250+) guarantees High Gravity; its close orbits make it Hot or Very Hot.
 	"chthonian":{
 		"name":"Chthonian",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId":"chthonian", # row in data/strings/descriptions.csv
 		"tilt":8,
 		"pitch":0,
@@ -119,6 +125,7 @@
 	# Spawns through normal generation like a gas giant. The glow layer stays lit on the night side too.
 	"subbrown_dwarf":{
 		"name":"Sub-Brown Dwarf",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId":"subbrown_dwarf", # row in data/strings/descriptions.csv
 		"tilt":-8,
 		"pitch":-15,
@@ -142,6 +149,7 @@
 	# Spawns through normal generation in the Frozen category.
 	"snowball":{
 		"name":"Snowball",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId":"snowball", # row in data/strings/descriptions.csv
 		"tilt":0,
 		"pitch":0,
@@ -161,6 +169,7 @@
 	# Not spawned by normal generation: RoguePlanetsModPlugin.generateSunderedWorlds() converts a few barren worlds.
 	"sundered":{
 		"name":"Sundered",
+		"tags":["codex_unlockable"], # codex entry stays locked until the player finds one
 		"descriptionId":"sundered", # row in data/strings/descriptions.csv
 		"tilt":12,
 		"pitch":-5,
@@ -182,6 +191,7 @@
 	# Violet Dwarf: the vanilla White Dwarf look tinted violet. To change the tint, edit the color numbers below.
 	"star_violet":{
 		"name":"Violet Dwarf",
+		"tags":["hide_in_codex"], # it appears on no chart, so it has no codex entry either
 		"descriptionId":"star_violet", # row in data/strings/descriptions.csv
 		"tilt":0,
 		"pitch":0,

@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.awt.Color;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.impl.campaign.econ.BaseMarketConditionPlugin;
@@ -119,7 +120,24 @@ public class VacationParadiseResortCondition extends BaseMarketConditionPlugin {
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Vacation Paradise & Resort");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Vacation Paradise & Resort");
         tooltip.addPara(
             "Basking in pristine natural beauty, picturesque coastlines, and exotic local spices, this world can be changed into an elite sector-wide holiday retreat. Sprawling luxury hotels, vibrant commercial promenades, and serene getaways draw wealthy travelers from core and rim worlds alike. Because open civilian resort enclaves dominate the terrain, conventional ground defense operations are completely unviable.",
             10f

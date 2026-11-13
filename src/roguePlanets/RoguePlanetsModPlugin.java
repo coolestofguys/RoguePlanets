@@ -205,6 +205,8 @@ public class RoguePlanetsModPlugin extends BaseModPlugin {
         generateViableSlaveLabor();
         syncCustomConditionSurveyFlags();
         registerScripts();
+        // Codex: unlock the mod's conditions on docking (surveying already unlocks them in the base game)
+        Global.getSector().addTransientListener(new CodexUnlockListener());
     }
 
     private void registerScripts() {

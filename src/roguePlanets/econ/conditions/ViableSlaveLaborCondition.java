@@ -203,7 +203,24 @@ public class ViableSlaveLaborCondition extends BaseMarketConditionPlugin impleme
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Viable Slave Labor Population");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Viable Slave Labor Population");
         tooltip.addPara(
             "A large, skilled population survives here, left behind by a fallen colony and with no power to refuse whoever holds the guns. A colony on this world can be made very profitable, but only for as long as the garrison is stronger than the workforce's patience.",
             10f);

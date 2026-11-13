@@ -432,7 +432,24 @@ public class TrashKingCondition extends BaseMarketConditionPlugin implements Mar
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Trash King");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Trash King");
         tooltip.addPara(
             "Nobody can say how long this person has lived alone on a wrecked world, sorting the wreckage into piles only they understand. "
             + "They carry themselves with such certainty, and speak with such a commanding air, that everyone who arrives ends up respecting them, "

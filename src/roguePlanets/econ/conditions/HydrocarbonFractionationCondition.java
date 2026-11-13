@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MutableCommodityQuantity;
@@ -112,7 +113,24 @@ public class HydrocarbonFractionationCondition extends BaseMarketConditionPlugin
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Hydrocarbon Fractionation");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Hydrocarbon Fractionation");
         tooltip.addPara(
             "The upper cloud strata of this hydrocarbon giant are rich in pre-sorted methane, ethane, and complex organic monomers. Automated catalytic cracking and fractionation aerostats harvest an inexhaustible stream of biopolymers and industrial feedstocks directly from the atmospheric soup, dynamically converting all volatile extraction into massive industrial-grade organics output.",
             10f

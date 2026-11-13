@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.Map;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
@@ -127,7 +128,24 @@ public class SmugglersHavenCondition extends BaseMarketConditionPlugin {
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Smugglers' Haven");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Smugglers' Haven");
         tooltip.addPara(
             "Tucked away beneath the shifting dunes and scorched canyons of this world lies a sprawling, lawless trading hub where outlaws, scavengers, and rogue traders broker unsanctioned deals. When paired with high-volume manufacturing and an open commercial bazaar, the settlement thrives as an autonomous freebooter haven where black-market cartels self-regulate, preventing the lawlessness of open commerce and free ports from destabilizing local authority.",
             10f

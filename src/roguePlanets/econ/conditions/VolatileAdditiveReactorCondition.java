@@ -1,5 +1,7 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.impl.campaign.econ.BaseMarketConditionPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Industries;
@@ -53,7 +55,24 @@ public class VolatileAdditiveReactorCondition extends BaseMarketConditionPlugin 
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Volatile Additive Reactor");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Volatile Additive Reactor");
         tooltip.addPara(
             "Veins of a pale crystalline mineral run through this world's crust. Nothing else known will hold a fuel additive this volatile in check: lined with it, a reactor can run refinery output straight into the fuel plant and dose it with an unstable additive that lets a drive burn harder than any regulated mixture. The additive is nowhere near sectorwide fuel compliance, so it can only be used locally. But the crystal only holds while its calibration is watched around the clock. Let that attention slip for even a moment, and the process turns extremely violent.",
             10f);

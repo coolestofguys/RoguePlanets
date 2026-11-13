@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.impl.campaign.econ.BaseMarketConditionPlugin;
@@ -91,7 +92,24 @@ public class HollowedCalderaGarrisonsCondition extends BaseMarketConditionPlugin
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Hollowed Caldera Garrisons");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Hollowed Caldera Garrisons");
         tooltip.addPara(
             "The crust of this world is riddled with dormant volcanic complexes, cavernous collapsed calderas, and sprawling subterranean networks of drained magma chambers and basaltic lava tubes. When fully surveyed, mined, and fortified by military coordination, these abyssal vaults grant impenetrable subterranean bunkers. However, without active mining maintenance and specialized garrison forces securing the labyrinthine underground breaches, these empty volcanic shafts serve as unmonitored infiltration conduits that attackers can easily exploit to bypass surface perimeters.",
             10f

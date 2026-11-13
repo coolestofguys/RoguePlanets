@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -308,7 +309,24 @@ public class MagmaticAntimatterForgeCondition extends BaseMarketConditionPlugin 
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Magmatic Antimatter Forge");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Magmatic Antimatter Forge");
         tooltip.addPara(
             "Anchored directly into active mantle convection currents and abyssal magma chambers, this scorching Hadean world harnesses extreme thermal and pressure differentials capable of pulverizing conventional metallurgy. When coupled with an active fuel production facility to inject supercritical antimatter streams directly into the foundries, industrial shipyards can forge hyper-dense alloy plating and relativistic structural lattices with unmatched structural integrity.",
             10f

@@ -1,5 +1,6 @@
 package roguePlanets.econ.conditions;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MonthlyReport;
@@ -103,7 +104,24 @@ public class RadiolyticCatalystCondition extends BaseMarketConditionPlugin imple
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Radiolytic Catalyst");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Radiolytic Catalyst");
         tooltip.addPara(
             "Unique ionizing mineral deposits and actinide isotopes embedded within the planetary crust emit a continuous, low-intensity radiolytic emission spectrum. When mined and channeled into bio-chemical synthesis vats, these radiation fields act as an extraordinary catalytic agent, refining crude narcotic precursors into exceptionally potent, ultra-pure designer compounds without requiring expensive industrial reagents.",
             10f

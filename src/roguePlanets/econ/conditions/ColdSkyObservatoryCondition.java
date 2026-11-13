@@ -194,7 +194,24 @@ public class ColdSkyObservatoryCondition extends BaseMarketConditionPlugin imple
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Cold Sky Observatory");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Cold Sky Observatory");
         tooltip.addPara(
             "Most ice giants are only cold. This one is different: its magnetic field is unusually quiet, its bulk casts a deep, steady shadow, "
             + "and the cold at that distance keeps infrared instruments almost perfectly still. A Waystation to relay the data and an Orbital Station to carry the optics, built together in orbit here, "

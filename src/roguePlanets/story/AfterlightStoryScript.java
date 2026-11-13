@@ -99,6 +99,7 @@ public class AfterlightStoryScript extends BaseCampaignEventListener implements 
 
         // Nothing in the story plays while the Afterlight is missing (destroyed, in storage), or for a week after it returns.
         AfterlightStory.updatePresence();
+        Strangeness.clearIfShipGone();
         if (!AfterlightStory.shipSettled()) return;
         CopyWreck.tick();
         if (AfterlightStory.getStage() >= 12) StageEvents.checkFortress();

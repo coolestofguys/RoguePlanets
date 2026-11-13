@@ -563,7 +563,24 @@ public class ForgottenVaultWorldCondition extends BaseMarketConditionPlugin {
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded) {
-        tooltip.addTitle("Forgotten Vault-World");
+        if (!Global.CODEX_TOOLTIP_MODE) {
+            createTooltipBody(tooltip, expanded);
+            return;
+        }
+        // Codex page: the codex shows the name itself, and there may be no real colony behind it
+        MarketAPI real = market;
+        try {
+            if (market == null) market = CodexTooltip.placeholderMarket();
+            createTooltipBody(tooltip, expanded);
+        } catch (Throwable t) {
+            CodexTooltip.fallback(tooltip);
+        } finally {
+            market = real;
+        }
+    }
+
+    private void createTooltipBody(TooltipMakerAPI tooltip, boolean expanded) {
+        if (!Global.CODEX_TOOLTIP_MODE) tooltip.addTitle("Forgotten Vault-World");
         tooltip.addPara(
             "Deep beneath the surface crust of this dead world lies a titanic, sealed repository predating the Collapse: a legendary hoard of pristine hulls, hyper-advanced matrices, and forbidden schematics untouched for centuries. Ripping open its automated seals and scouring its sprawling subterranean databanks yields miraculous technological finds, but the process awakens unpredictable security constructs, erratic anomaly radiation, and superstitious panic among colonial work crews.",
             10f

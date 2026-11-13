@@ -64,19 +64,33 @@ public class Strangeness {
     // ---------------------------------------------------------------- shared cooldown
 
     /** Days between two events: shorter as the story advances. */
+    /** Days between strange events. Fixed: it does not shorten as the story advances. */
     private static float cooldownDays() {
-        int stage = AfterlightStory.getStage();
-        return Math.max(12f, 30f - stage * 1.5f);
+        return 30f;
     }
 
-    /** Chance per day that the pool is drawn from once the cooldown is over: a little higher as the story advances. */
+    /** Chance per day that the pool is drawn from once the cooldown is over. Fixed: it does not rise as the story advances. */
     private static float dailyChance() {
-        return 0.06f + 0.008f * AfterlightStory.getStage();
+        return 0.08f;
     }
 
     private static boolean storyReady() {
         return AfterlightStory.isClaimed() && AfterlightStory.getStage() >= 3
-            && !roguePlanets.AfterlightCaptainScript.captainGone();
+            && !roguePlanets.AfterlightCaptainScript.captainGone()
+            && !Stage16.done() // the strangeness stops once any ending has been chosen
+            && afterlightInFleet(); // and only happens while the Afterlight is with the player
+    }
+
+    /** Called by the story driver about once a second: if the Afterlight has left the fleet, a strange event in progress ends with it. */
+    public static void clearIfShipGone() {
+        if (mercActive() && !afterlightInFleet()) mercClear();
+    }
+
+    /** True only while the Afterlight itself is in the player's fleet (not in storage, handed over, lost or sold). */
+    private static boolean afterlightInFleet() {
+        CampaignFleetAPI p = Global.getSector().getPlayerFleet();
+        Object m = Global.getSector().getMemoryWithoutUpdate().get(roguePlanets.AfterlightCaptainScript.KEY_MEMBER_OBJ);
+        return m != null && p != null && p.getFleetData().getMembersListCopy().contains(m);
     }
 
     public static boolean cooldownOver() {
@@ -116,6 +130,12 @@ public class Strangeness {
 
     /** Called once per second from the story script. */
     public static void tick() {
+        if (Stage16.done()) {
+            // An ending was chosen: clear anything still pending so nothing strange happens afterwards
+            if (mercActive()) mercClear();
+            AfterlightStory.mem().unset(K_CREW_ARMED);
+            return;
+        }
         if (!storyReady()) return;
         mercTick();
         CampaignFleetAPI player = Global.getSector().getPlayerFleet();
@@ -251,7 +271,7 @@ public class Strangeness {
     /** Called every frame: when the player docks at a colony, adds the inverted crew-leaving text to the docking screen. */
     public static void frame() {
         MemoryAPI mem = AfterlightStory.mem();
-        if (!mem.getBoolean(K_CREW_ARMED)) { lastDialog = null; return; }
+        if (!mem.getBoolean(K_CREW_ARMED) || Stage16.done()) { lastDialog = null; return; }
         if (Global.getSector().getClock().getElapsedDaysSince(mem.getLong(K_CREW_STAMP)) > 45f) { mem.unset(K_CREW_ARMED); return; }
         InteractionDialogAPI d = Global.getSector().getCampaignUI().getCurrentInteractionDialog();
         if (d == null) { lastDialog = null; return; }
@@ -504,7 +524,7 @@ public class Strangeness {
             if (fleet == null || !fleet.isPlayerFleet()) return;
             if (!storyReady() || !cooldownOver()) return;
             if (Global.getSector().getCampaignUI().isShowingDialog()) return;
-            if (rand.nextFloat() >= 0.05f + 0.005f * AfterlightStory.getStage()) return;
+            if (rand.nextFloat() >= 0.065f) return; // fixed chance per jump, whatever the story stage
             float r = rand.nextFloat();
             if (r < 0.6f) {
                 Global.getSector().getCampaignUI().addMessage(scramble("Transit complete. Elapsed: 0 days. Arrival: before departure."), Misc.getGrayColor());
