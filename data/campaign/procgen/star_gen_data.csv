@@ -1,0 +1,2 @@
+id,age,tags,freqYOUNG,freqAVERAGE,freqOLD,minRadius,maxRadius,habZoneStart,probOrbits,minOrbits,maxOrbits,coronaMin,coronaMult,coronaVar,solarWind,minFlare,maxFlare,crLossMult,lightColorMin,lightColorMax
+star_violet,OLD,,0,0,0,400,700,2,0.95,2,6,300,1,0.25,5,0,1,2,110 40 210,150 75 255

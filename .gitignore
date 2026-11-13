@@ -1,0 +1,15 @@
+# Build output (jars/RoguePlanets.jar is kept so the repo is playable as downloaded)
+build/
+sources.txt
+
+# Release zips made by make_release.bat
+release/
+*.zip
+
+# Local working folders
+_backup_before_*/
+_icon_alternates/
+_icon_originals_64/
+_violet_dwarf_story_pack/
+_promo_unrevealed/
+forum_post.txt

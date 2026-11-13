@@ -1,0 +1,17 @@
+{
+	# Tumbling crust fragment orbiting a Sundered world. Drawn and spun by roguePlanets.SunderedFragmentPlugin.
+	"rp_sundered_fragment":{
+		"defaultName":"Crustal Fragment",
+		"defaultRadius":20,
+		"nameInText":"crustal fragment",
+		"shortName":"fragment",
+		"aOrAn":"a",
+		"isOrAre":"is",
+		"showInCampaign":true,
+		"showIconOnMap":false,
+		"showNameOnMap":false,
+		"interactable":false,
+		"layers":[STATIONS],
+		"pluginClass":"roguePlanets.SunderedFragmentPlugin",
+	},
+}

@@ -1,0 +1,149 @@
+id,trigger,conditions,script,text,options,notes
+vd_normalStart,BeginFleetEncounter,"!$isHostile
+$violetDistress score:1000
+!$violetDistress_paid
+!$violetDistress_noHail","AddText ""You're being hailed."" $faction.baseColor
+$hailing = true 0",,,"Violet Dwarf distress call, modeled on vanilla dstr_normalStart"
+vd_openComms,OpenCommLink,"!$isHostile
+$entity.violetDistress score:1000
+!$entity.violetDistress_paid","$cutCommLinkPolite = true 0
+AddText ""\""Thank the stars you showed up!""
+AddText ""Our stores were lost and we are running on fumes and recyclers. We need $entity.violetDistress_supplies units of supplies and $entity.violetDistress_fuel units of fuel to make it back to the core worlds. Anything you can spare - we'll remember it.\""""
+SetTextHighlights $entity.violetDistress_supplies $entity.violetDistress_fuel
+FireBest VDAidOptions",,,
+vd_aidOptions,VDAidOptions,,FireBest VDShowAvailableSupplies,,"vdGive:""Of course - we'll transfer the supplies.""
+vdDeny:""I'm sorry, we don't have enough to spare right now.""",
+vd_showEnoughSupplies,VDShowAvailableSupplies,$entity.violetDistress_canPay,SetTextHighlights $player.supplies $player.fuel,You have $player.supplies units of supplies and $player.fuel units of fuel available.,,
+vd_showNotEnoughSupplies,VDShowAvailableSupplies,!$entity.violetDistress_canPay,"SetTextHighlightColors bad bad
+SetTextHighlights $player.supplies $player.fuel
+SetEnabled vdGive false",You have $player.supplies units of supplies and $player.fuel units of fuel available.,,
+vd_giveSel,DialogOptionSelected,$option == vdGive,"AddRemoveCommodity supplies $entity.violetDistress_suppliesDelta true
+AddRemoveCommodity fuel $entity.violetDistress_fuelDelta true
+$entity.violetDistress_paid = true
+AddText ""\""Th@nk y0u... #hank y-u. W3 w#re... y#u are v-ry k*nd. Th- l/ght... pl-ase d0n't l#ok at th- l|ght. Th@nk you. Th@nk you. Th@nk you. W- w-re n-ver he-e. W# w#re n#ver he#e.\""""
+AddText ""The transmission dissolves into static, and underneath it something that sounds very much like your own voice is reading the words back to you.""",,"vdClose:""Cut the comm link""",
+vd_denySel,DialogOptionSelected,$option == vdDeny,"$entity.violetDistress_noHail = true
+EndConversation NO_CONTINUE","""We'll just have to make do somehow, then. I expect you'll let others know of our plight.""
+
+The comm link is cut rather abruptly.",,
+vd_closeSel,DialogOptionSelected,$option == vdClose,DismissDialog,,,Closes everything; VioletSystemScript removes the fleet once the dialogue is gone
+vd2_begin,BeginFleetEncounter,"!$isHostile
+$violetDouble score:1000
+!$violetDouble_done","AddText ""You're being hailed by $fleetName."" $faction.baseColor
+OpenComms",,,Doppelganger patrol; modeled on vanilla tOffPatrolBegin
+vd2_openOff,OpenCommLink,"$entity.violetDouble score:1000
+!$entity.violetDouble_done
+!$player.transponderOn","AddText ""\""Unknown fleet, identify yourself! Running with the transponder off in sp@ce that is not on any ch-rt is against the law. You're hereby ordered to turn your transponder on and submit to a cargo scan.\""""
+AddText ""Relationship with the Un#nown reduced by 2, currently at -2/100 (neutral)"" textGrayColor
+SetTextHighlights ""reduced by 2""
+SetTextHighlightColors bad
+AddText ""Relationship with $personName reduced by 3, currently at -3/100 (neutral)"" textGrayColor
+SetTextHighlights ""reduced by 3""
+SetTextHighlightColors bad",,vd2Comply:Turn the transponder on and comply,
+vd2_openOn,OpenCommLink,"$entity.violetDouble score:1000
+!$entity.violetDouble_done
+$player.transponderOn score:10","AddText ""\""Unknown fleet, identify yourself! Running with the transponder on in sp@ce that is not on any ch-rt is against the law. You're hereby ordered to turn your transponder off and submit to a cargo scan.\""""
+AddText ""Relationship with the Un#nown reduced by 2, currently at -2/100 (neutral)"" textGrayColor
+SetTextHighlights ""reduced by 2""
+SetTextHighlightColors bad
+AddText ""Relationship with $personName reduced by 3, currently at -3/100 (neutral)"" textGrayColor
+SetTextHighlights ""reduced by 3""
+SetTextHighlightColors bad",,vd2Off:Turn the transponder off and allow the scan,
+vd2_complySel,DialogOptionSelected,$option == vd2Comply,"$entity.violetDouble_wasOff = true
+ActivateAbility $player.fleetId transponder
+UpdateMemory",You issue an order to activate the transponder and wait for the cargo scan to finish.,vd2Scan:Continue,
+vd2_offSel,DialogOptionSelected,$option == vd2Off,"$entity.violetDouble_wasOff = false
+DeactivateAbility $player.fleetId transponder
+UpdateMemory",You issue an order to shut down the transponder and wait for the cargo scan to finish.,vd2Scan:Continue,
+vd2_scanSel,DialogOptionSelected,$option == vd2Scan,"$entity.violetDouble_done = true
+AddText ""After a brief wait, $otherFleetName transmits the scan results.""
+AddText ""----------------------------------------"" textGrayColor
+AddText ""No contraband or suspicious cargo found. Manifest matches your own, down to the last unit."" textGrayColor
+AddText ""----------------------------------------"" textGrayColor","The commander's face fills the display. It is a face you know well. They speak in your voice, a half-second ahead of your thoughts.
+
+""We found them.""",vd2Cont:Continue,
+vd2_contOff,DialogOptionSelected,"$option == vd2Cont
+$entity.violetDouble_wasOff",SetTextHighlights transponder,"$PersonRank $personName looks vaguely displeased.
+
+""If we find you running with the transponder off again, you won't get off so easily.""
+
+The comm link is cut before you have a chance to respond.","vdClose:""Cut the comm link""",
+vd2_contOn,DialogOptionSelected,"$option == vd2Cont
+!$entity.violetDouble_wasOff",SetTextHighlights transponder,"$PersonRank $personName looks vaguely displeased.
+
+""If we find you running with the transponder on again, you won't get off so easily.""
+
+The comm link is cut before you have a chance to respond.","vdClose:""Cut the comm link""",
+vd3_open,OpenInteractionDialog,$violetAfterlight score:1000,ShowDefaultVisual,"The Afterlight drifts here with its running lights lit, hull unmarked. Every instrument you have says the ship is whole and empty.
+
+The glow from its forward ports is a violet that does not match the light of the star, and it is turned toward you. Something in you wants very much to look at it directly.","vd3Look:Look at the light
+vd3NoLook:Don't look at the light",Afterlight custom interaction; replaces the normal salvage menu
+vd3_look,DialogOptionSelected,$option == vd3Look,"VioletClaimAfterlight
+AddText ""You look. It does not hurt. For a long moment it feels like being recognized, and then the sensation passes and the glow is gone.""
+AddText ""When your officers check, the Afterlight is already on your fleet roster, its systems warm, its crew list blank.""",,vdClose:Leave,
+vd3_nolook,DialogOptionSelected,$option == vd3NoLook,DismissDialog,,,
+vd3r_open,OpenInteractionDialog,"$violetAfterlight
+$violetAfterlightReturn score:2000",ShowDefaultVisual,"The Afterlight is here again.
+
+It was not here when the battle began. Your sensor logs say so, and they also say it has always been exactly here. Its running lights are lit, its hull unmarked, and the violet glow from its forward ports is steady and patient, like something that has been waiting for you to finish.","vd3rTake:Bring it aboard
+vd3rLeave:Leave it",Afterlight returning after a battle; replaces the first-contact text
+vd3r_take,DialogOptionSelected,$option == vd3rTake,"VioletClaimAfterlight
+AddText ""You do not look at the light this time. It does not seem to mind.""
+AddText ""The Afterlight is on your roster before the order is finished. Its crew list is blank, and the entry looks as if it was never removed.""",,vdClose:Leave,
+vd3r_leave,DialogOptionSelected,$option == vd3rLeave,DismissDialog,,,
+vd8_open,OpenInteractionDialog,"$violetCopy score:3000
+!$violetCopy_read","AflCopyFound
+ShowDefaultVisual","A wreck drifts here, stripped to the frame. Its transponder is dead, but the hull is yours: the same lines, the same scoring along the port side, the same repairs in the same places.
+
+The name on the bow reads $global.afl_copyName.
+
+Nothing aboard is powered, but the data core is warm.","vd8Logs:Look at the logs
+vdClose:Leave",Stage 8: the copy of the flagship; replaces the normal salvage menu
+vd8_open_read,OpenInteractionDialog,"$violetCopy score:3000
+$violetCopy_read score:100
+!$violetCopy_looted","AflCopyFound
+ShowDefaultVisual","A wreck drifts here, stripped to the frame. Its transponder is dead, but the hull is yours: the same lines, the same scoring along the port side, the same repairs in the same places.
+
+The name on the bow reads $global.afl_copyName.
+
+Nothing aboard is powered, but the data core is warm.","vd8Logs:Look at the logs
+vd8Cargo:Inspect the cargo holds
+vdClose:Leave",
+vd8_open_done,OpenInteractionDialog,"$violetCopy score:3000
+$violetCopy_looted score:200","AflCopyFound
+ShowDefaultVisual","A wreck drifts here, stripped to the frame. Its transponder is dead, but the hull is yours: the same lines, the same scoring along the port side, the same repairs in the same places.
+
+The name on the bow reads $global.afl_copyName.
+
+Nothing aboard is powered, but the data core is warm.","vd8Logs:Look at the logs
+vdClose:Leave",
+vd8_logs,DialogOptionSelected,"$option == vd8Logs
+!$violetCopy_looted",AflCopyMark read,"The log is intact, and it is yours. It lists the last jumps in order: $global.afl_logList. Each entry has the time of arrival, the fuel burned and the officer on watch. The officer on watch is always you.
+
+The last entry begins: ""Arrived at $global.afl_logLast. Quiet. I keep thinking the ship behind us is not behind us at all, that it is where we are going, that it is already there, it is--""
+
+It stops there. Not cut off. Stopped, the way a sentence stops when the person writing it is called away.","vd8Cargo:Inspect the cargo holds
+vdClose:Leave",
+vd8_logs_b,DialogOptionSelected,"$option == vd8Logs
+$violetCopy_looted",AflCopyMark read,"The log is intact, and it is yours. It lists the last jumps in order: $global.afl_logList. Each entry has the time of arrival, the fuel burned and the officer on watch. The officer on watch is always you.
+
+The last entry begins: ""Arrived at $global.afl_logLast. Quiet. I keep thinking the ship behind us is not behind us at all, that it is where we are going, that it is already there, it is--""
+
+It stops there. Not cut off. Stopped, the way a sentence stops when the person writing it is called away.",vdClose:Leave,
+vd8_cargo,DialogOptionSelected,"$option == vd8Cargo
+!$violetCopy_looted",AflCopyLoot,"The cargo holds are sealed, but the seals are your seals, and they open to your codes. Inside, the crates are stacked the way you would have stacked them, strapped down with the knots your crew favors. The labels are in your quartermaster's handwriting.
+
+There is a great deal here. You are not sure whose it was.",,
+vd8_after,DialogOptionSelected,$option == vd8After,,The holds are bare. There is nothing left here that you would not rather have on your own ship.,vd8Shuttle:Order a shuttle to transfer the cargo to your ship,
+vd8_shuttle,DialogOptionSelected,$option == vd8Shuttle,,"The hold you are standing in has the same grey deck plates as your own. The same patched bulkhead, the same dent by the hatch. The scuffs under your boots are the ones you know.
+
+You are on your own ship. You are also certain you walked here from the wreck.",vd8Crew:Continue,
+vd8_crew,DialogOptionSelected,$option == vd8Crew,,"A crew member's voice comes over the channel, patient and ordinary.
+
+""Orders, Captain?""","vd8Back:""Back to stations.""",
+vd8_back,DialogOptionSelected,$option == vd8Back,"AflCopyMark fade
+DismissDialog",,,The wreck fades out as the dialogue closes
+rp_king_option,PopulateOptions,"$hasMarket
+$menuState == main",RpKingOffer,,,Trash King: offers the call-back button while the deposed king can still be called back
+rp_king_restore,DialogOptionSelected,$option == rpKingRestore,"RpKingRestore
+FireAll PopulateOptions","The word travels the colony faster than you do. By evening the Trash King is back on the seat, and nobody admits to having doubted it.",,Trash King: call the king back

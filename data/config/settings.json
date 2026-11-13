@@ -1,0 +1,25 @@
+{
+	# Combat plugin that keeps the phantom pirate armada from ever deploying ships.
+	"plugins":{
+		"roguePlanets_phantomCombat":"roguePlanets.PhantomCombatPlugin",
+		"roguePlanets_strangeCombat":"roguePlanets.StrangeCombatPlugin",
+		"roguePlanets_groundMissiles":"roguePlanets.GroundMissilePlugin",
+	},
+	# Custom rule commands used by this mod's dialogue (VioletClaimAfterlight).
+	"ruleCommandPackages":[
+		"roguePlanets.rules",
+	],
+	# The Afterlight captain's portrait.
+	"graphics":{
+		"characters":{
+			"roguePlanets_afterlight_captain":"graphics/portraits/afterlight_captain.png",
+		},
+		# Sundered world crust fragments (loaded here so the fragment plugin can draw them).
+		"roguePlanets_sundered":{
+			"frag0":"graphics/planets/sundered_fragment0.png",
+			"frag1":"graphics/planets/sundered_fragment1.png",
+			"frag2":"graphics/planets/sundered_fragment2.png",
+			"frag3":"graphics/planets/sundered_fragment3.png",
+		},
+	},
+}

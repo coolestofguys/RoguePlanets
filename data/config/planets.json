@@ -1,0 +1,202 @@
+{
+	# Nocturnal World: a darkened variant of the vanilla Terran look.
+	# To change how dark it is, edit planetColor / cloudColor / atmosphereColor / iconColor (lower = darker).
+	"nocturnal":{
+		"name":"Nocturnal",
+		"descriptionId":"roguePlanets_nocturnal", # row in data/strings/descriptions.csv
+		"tilt":20, # left-right (>0 tilts to the left)
+		"pitch":30, # towards-away from the viewer (>0 pitches towards)
+		"rotation":-3, # degrees/second
+		"planetColor":[255,255,255,255], # texture is already dark; lower these numbers to darken further
+		"atmosphereThickness":0.25, # as fraction of radius.  Set to 0 for no atmosphere
+		"atmosphereThicknessMin":40, #  minimum thickness in pixels
+		"atmosphereColor":[48,64,112,100],
+		"texture":"graphics/planets/nocturnal.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[100,115,160,255],
+		"isStar":false,
+		"lightPosition":[4,-1,8], # in planet radii.  Not used for stars.  z > 0 is above the playing field.
+		"cloudTexture":"graphics/planets/clouds_banded01.png", # omit for no cloud layer
+		"cloudColor":[88,92,112,225],
+		"cloudRotation":-5, # degrees/second, optional
+	},
+
+	"eden_world":{
+		"name":"Eden",
+		"descriptionId":"eden_world",
+		"tilt":12,
+		"pitch":0,
+		"rotation":3,
+		"scale":1.0,
+		"planetType":true,
+		"atmosphereColor":[110,235,220,200],
+		"atmosphereThickness":0.24,
+		"cloudColor":[245,255,250,215],
+		"texture":"graphics/planets/eden_planet.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[110,235,220,255],
+	},
+	
+	"hydrocarbon_giant": {
+		"name": "Hydrocarbon Giant",
+		"descriptionId": "hydrocarbon_giant",
+		"isGasGiant": true,
+		"tilt": 18,
+		"pitch": 0,
+		"rotation": 14,
+		"scale": 1.0,
+		"planetColor": [255, 255, 255, 255],
+		"texture": "graphics/planets/hydrocarbon_giant.jpg",
+		"icon": "graphics/warroom/icon_planet.png",
+		"iconColor": [125, 127, 132, 255],
+		"atmosphereThickness": 0.12,
+		"atmosphereThicknessMin": 45,
+		"atmosphereColor": [65, 70, 78, 140],
+		"lightPosition": [4, -1, 8]
+	},
+
+	"hadean_world": {
+		"name": "Hadean",
+		"descriptionId": "hadean_world",
+		"tilt": 10,
+		"pitch": 0,
+		"rotation": 2,
+		"scale": 1.0,
+		"planetColor": [255, 255, 255, 255],
+		"texture": "graphics/planets/hadean_planet.jpg",
+		"icon": "graphics/warroom/icon_planet.png",
+		"iconColor": [215, 80, 35, 255],
+		"isStar": false,
+		"atmosphereThickness": 0.18,
+		"atmosphereThicknessMin": 55,
+		"atmosphereColor": [200, 70, 25, 110],
+		"lightPosition": [4, -1, 8],
+
+		"cloudTexture": "graphics/planets/clouds_banded01.png",
+		"cloudColor": [190, 165, 60, 140],
+		"cloudRotation": -4
+	},
+
+	# Halite World: a dried-out ocean world of cracked salt flats, brine lakes and evaporite rings.
+	# Spawns through normal generation (see data/campaign/procgen/planet_gen_data.csv).
+	"halite":{
+		"name":"Halite",
+		"descriptionId":"halite", # row in data/strings/descriptions.csv
+		"tilt":14,
+		"pitch":0,
+		"rotation":4, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0.14, # thin, hazy salt-dust atmosphere
+		"atmosphereThicknessMin":30,
+		"atmosphereColor":[235,205,190,95],
+		"texture":"graphics/planets/halite_planet.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[235,220,215,255],
+		"isStar":false,
+		"lightPosition":[4,-1,8],
+	},
+
+	# Chthonian World: the exposed metal-rock core of a gas giant whose envelope was stripped away by its star.
+	# Spawns through normal generation. Its radius (250+) guarantees High Gravity; its close orbits make it Hot or Very Hot.
+	"chthonian":{
+		"name":"Chthonian",
+		"descriptionId":"chthonian", # row in data/strings/descriptions.csv
+		"tilt":8,
+		"pitch":0,
+		"rotation":2, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0.08, # only a faint glow of boiled-off metal vapour
+		"atmosphereThicknessMin":20,
+		"atmosphereColor":[255,130,60,70],
+		"texture":"graphics/planets/chthonian_planet.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[150,120,105,255],
+		"isStar":false,
+		"lightPosition":[4,-1,8],
+	},
+
+	# Sub-Brown Dwarf: a super-Jupiter on the edge of being a star, glowing magenta from internal heat under iron clouds.
+	# Spawns through normal generation like a gas giant. The glow layer stays lit on the night side too.
+	"subbrown_dwarf":{
+		"name":"Sub-Brown Dwarf",
+		"descriptionId":"subbrown_dwarf", # row in data/strings/descriptions.csv
+		"tilt":-8,
+		"pitch":-15,
+		"rotation":-2, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0.2,
+		"atmosphereThicknessMin":62,
+		"atmosphereColor":[200,60,160,150],
+		"texture":"graphics/planets/subbrown_dwarf.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[210,90,170,255],
+		"isStar":false,
+		"isGasGiant":true,
+		"lightPosition":[5,-2,3],
+		"glowTexture":"graphics/planets/subbrown_dwarf_glow.png", # magenta internal-heat glow; lower glowColor to dim it
+		"glowColor":[255,255,255,255],
+		"useReverseLightForGlow":false,
+	},
+
+	# Snowball World: a once-temperate ocean world locked under a planet-wide ice sheet. A variant of vanilla Frozen.
+	# Spawns through normal generation in the Frozen category.
+	"snowball":{
+		"name":"Snowball",
+		"descriptionId":"snowball", # row in data/strings/descriptions.csv
+		"tilt":0,
+		"pitch":0,
+		"rotation":-3, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0.22,
+		"atmosphereThicknessMin":12,
+		"atmosphereColor":[170,200,230,140],
+		"texture":"graphics/planets/snowball_planet.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[235,240,255,255],
+		"isStar":false,
+		"lightPosition":[12,-2,-3],
+	},
+
+	# Sundered World: a barren world torn apart, ringed by its own tumbling crust fragments.
+	# Not spawned by normal generation: RoguePlanetsModPlugin.generateSunderedWorlds() converts a few barren worlds.
+	"sundered":{
+		"name":"Sundered",
+		"descriptionId":"sundered", # row in data/strings/descriptions.csv
+		"tilt":12,
+		"pitch":-5,
+		"rotation":-1.5, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0, # torn open to space
+		"atmosphereThicknessMin":0,
+		"atmosphereColor":[255,120,60,0],
+		"texture":"graphics/planets/sundered_planet.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[200,120,90,255],
+		"isStar":false,
+		"lightPosition":[4,-1,8],
+		"glowTexture":"graphics/planets/sundered_planet_glow.png", # rifts and torn basins glow on the night side
+		"glowColor":[255,255,255,255],
+		"useReverseLightForGlow":false,
+	},
+
+	# Violet Dwarf: the vanilla White Dwarf look tinted violet. To change the tint, edit the color numbers below.
+	"star_violet":{
+		"name":"Violet Dwarf",
+		"descriptionId":"star_violet", # row in data/strings/descriptions.csv
+		"tilt":0,
+		"pitch":0,
+		"rotation":-3,
+		"planetColor":[185,120,255,255],
+		"atmosphereThickness":0.25,
+		"atmosphereThicknessMin":10,
+		"atmosphereColor":[160,90,255,255],
+		"texture":"graphics/planets/star_white.jpg",
+		"icon":"graphics/warroom/icon_star.png",
+		"iconColor":[185,120,255,255],
+		"starCoronaSprite":"graphics/fx/star_halo.png",
+		"starCoronaColor":[140,70,255,80],
+		"starCoronaSizeMult":5.12,
+		"isStar":true,
+		"lightPosition":[0,0,10],
+	},
+}

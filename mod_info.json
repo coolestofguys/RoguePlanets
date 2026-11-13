@@ -1,0 +1,10 @@
+{
+  "id": "rogue_planets",
+  "name": "Rogue Planets",
+  "author": "coolestofguys",
+  "version": "1.0.0",
+  "description": "New kinds of worlds and over thirty new market conditions, many of them synergies that wake up when you build the right pair of industries. Some of the frontier's secrets are not on any chart. Requires a new game.",
+  "gameVersion": "0.98.5a-RC5",
+  "jars": ["jars/RoguePlanets.jar"],
+  "modPlugin": "roguePlanets.RoguePlanetsModPlugin"
+}

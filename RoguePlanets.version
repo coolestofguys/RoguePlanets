@@ -1,0 +1,9 @@
+{
+  "masterVersionFile": "https://raw.githubusercontent.com/coolestofguys/RoguePlanets/main/RoguePlanets.version",
+  "modName": "Rogue Planets",
+  "modVersion": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  }
+}
